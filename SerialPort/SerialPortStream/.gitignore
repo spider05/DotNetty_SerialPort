@@ -1,0 +1,13 @@
+bin/
+obj/
+project.lock.json
+/packages
+/distribute
+.vs
+.vscode
+*.nupkg
+*.suo
+*.user
+*.userprefs
+*.GhostDoc.xml
+.DS_Store
