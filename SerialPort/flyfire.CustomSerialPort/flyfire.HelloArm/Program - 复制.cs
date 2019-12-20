@@ -38,62 +38,49 @@ namespace flyfire.HelloArm
             RunService();
 #endif
 
-            //              --打开成功--可关闭/可输入内容/退出--------
-            //提示打开串口-|                                     |
-            //              --打开失败--提示继续打开--打开成功--             
-            //打开串口
-
-            Open();
-            //Console.WriteLine("\r\n请输入以下命令\r\n");
-            Console.WriteLine("p:端口列表");
-            Console.WriteLine($"c:关闭端口");
-            Console.WriteLine("q:退出");
-            Console.WriteLine();
-
             bool quit = false;
             while (!quit)
             {
-
-                string key = Console.ReadLine();//.ReadKey().KeyChar;
+                Console.WriteLine("\r\n请输入以下命令\r\n");
+                Console.WriteLine("p:端口列表");
+                Console.WriteLine($"t:测试端口:\"{selectedComPort}\"");
+                Console.WriteLine($"o:打开端口:\"{selectedComPort}\"");
+                Console.WriteLine($"c:关闭端口:\"{selectedComPort}\"");
+                Console.WriteLine("n:选择下一个端口");
+                Console.WriteLine("q:退出");
+                Console.WriteLine();
+                var key = Console.ReadKey().KeyChar;
                 Console.WriteLine();
 
                 switch (key)
                 {
-                    //case (Char)27:
-                    case "q":
-                    case "Q"://关闭
+                    case (Char)27:
+                    case 'q':
+                    case 'Q':
                         quit = true;
                         break;
-                    case "p":
+                    case 's':
+                        ShowWelcome();
+                        break;
+                    case 'p':
                         ShowPortNames();
                         break;
-                    case "c":
-                       bool isClose= UtilityClass.CloseUart();
-                        if (isClose)
-                        {
-                            Open();
-                        }
+                    case 'n':
+                        SelectSerialPort();
                         break;
-                    default:
-                        UtilityClass.WriteMsg(key);
+                    case 't':
+                        TestUart(selectedComPort);
+                        break;
+                    case 'w':
+                        TestWinUart(selectedComPort);
+                        break;
+                    case 'o':
+                        OpenUart(selectedComPort);
+                        break;
+                    case 'c':
+                        CloseUart();
                         break;
                 }
-            }
-        }
-
-       static void Open()
-        {
-            bool flag = false;
-            while (!flag)
-            {
-                Console.WriteLine("\r\n请输入连接串口");
-                string strCom = Console.ReadLine();
-                if (strCom.ToLower() == "exit")
-                {
-                    flag = true;
-                    return;
-                }
-                flag = UtilityClass.OpenUart(strCom);
             }
         }
 
@@ -131,7 +118,7 @@ namespace flyfire.HelloArm
                 string msg = Encoding.ASCII.GetString(bytes).Replace("\r", "").Replace("\n", "");
                 string echo = $"{sps.PortName} Receive Data:[{msg}].Item already filtered crlf.";
                 Console.WriteLine(echo);
-                if (!echo.Contains($"{sps.PortName}"))
+                if(!echo.Contains($"{sps.PortName}"))
                     sps.WriteLine(msg);
             }
             catch (Exception ex)
@@ -233,7 +220,7 @@ namespace flyfire.HelloArm
                 csp.ReceivedEvent += Csp_ReceivedEvent;
                 csp.Open();
                 OpenUartTestTimer();
-                Console.WriteLine($"打开串口:{portName} 成功!波特率:{baudRate}");
+                Console.WriteLine($"open serial port:{portName} succful!baudRate:{baudRate}");
             }
             catch (Exception ex)
             {
