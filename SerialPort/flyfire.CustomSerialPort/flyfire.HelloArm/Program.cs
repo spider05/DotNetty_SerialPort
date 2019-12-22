@@ -21,6 +21,8 @@ namespace flyfire.HelloArm
 
         static void Main(string[] args)
         {
+          byte[] bytes=  UtilityClass.HexToBytes("31 32 33");
+
             SetLibPath();
             ShowWelcome();
 
