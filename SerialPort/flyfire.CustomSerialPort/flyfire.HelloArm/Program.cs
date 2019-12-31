@@ -21,7 +21,35 @@ namespace flyfire.HelloArm
 
         static void Main(string[] args)
         {
-          byte[] bytes=  UtilityClass.HexToBytes("31 32 33");
+            byte[] bytes0=  UtilityClass.HexToBytes("24 49 43 4a 43 00 0c 06 f7 42 00");
+            byte b = UtilityClass.GetXor(bytes0);
+
+            byte[] b3 =new byte[3];
+            b3[0] = 0xa3;
+            b3[1] = 0xa2;
+            b3[2] = 0x02;
+
+            int a = 0x02a2a3;
+
+            int iLocalID = 0x06f742;//456514
+            byte[] bytes = new byte[3];
+            bytes[0] = (byte)(iLocalID >> 16);//卡号移位换算
+            bytes[1] = (byte)((iLocalID & 0xffff) >> 8);//卡号移位换算
+            bytes[2] = (byte)(iLocalID & 0xff);//卡号移位换算
+
+            int bb = (iLocalID<<8); 
+
+            Int64 a3 = 0x244a535a4c;
+            byte[] bASCII = new byte[5];
+            bASCII[0] = (byte)(a3 >>32);
+            bASCII[1] = (byte)((a3 & 0xffffffff)>> 24);
+            bASCII[2] = (byte)((a3 & 0xffffff) >> 16);
+            bASCII[3] = (byte)((a3 & 0xffff)>>8);
+            bASCII[4] = (byte)(a3&0xff);
+
+
+          string str=  Encoding.ASCII.GetString(bASCII);
+
 
             SetLibPath();
             ShowWelcome();
@@ -40,11 +68,10 @@ namespace flyfire.HelloArm
             RunService();
 #endif
 
-            //              --打开成功--可关闭/可输入内容/退出--------
+            //              --打开成功--可关闭/可输入内容/退出--
             //提示打开串口-|                                     |
             //              --打开失败--提示继续打开--打开成功--             
             //打开串口
-
             Open();
             //Console.WriteLine("\r\n请输入以下命令\r\n");
             Console.WriteLine("p:端口列表");

@@ -290,5 +290,24 @@ namespace flyfire.HelloArm
             System.Text.Encoding chs = System.Text.Encoding.GetEncoding(charset);
             return chs.GetString(bytes);
         }
+
+
+        /// <summary>
+        /// 异或操作
+        /// </summary>
+        /// <param name="data"></param>
+        /// <returns></returns>
+        public static byte GetXor(byte[] data)
+        {
+            byte CheckCode = 0;
+            int len = data.Length;
+            for (int i = 0; i < len; i++)
+            {
+                CheckCode ^= data[i];
+            }
+            return CheckCode;
+        }
+
+   
     }
 }
