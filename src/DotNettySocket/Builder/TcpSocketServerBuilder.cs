@@ -46,7 +46,7 @@ namespace Coldairarrow.DotNettySocket
                 .ChildHandler(new ActionChannelInitializer<IChannel>(channel =>
                 {
                     IChannelPipeline pipeline = channel.Pipeline;
-                    _setEncoder?.Invoke(pipeline);
+                    //_setEncoder?.Invoke(pipeline);
                     pipeline.AddLast(new CommonChannelHandler(tcpServer));
                 })).BindAsync(_port);
             _event.OnServerStarted?.Invoke(tcpServer);

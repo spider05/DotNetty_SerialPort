@@ -37,6 +37,8 @@ namespace flyfire.HelloArm
             bytes[1] = (byte)((iLocalID & 0xffff) >> 8);//卡号移位换算
             bytes[2] = (byte)(iLocalID & 0xff);//卡号移位换算
 
+       
+
             int bb = (iLocalID<<8); 
 
             Int64 a3 = 0x244a535a4c;

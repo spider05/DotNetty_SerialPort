@@ -38,7 +38,7 @@ namespace TcpSocket.Server
                 {
                     Console.WriteLine($"服务启动");
                 }).BuildAsync();
-
+            
             Console.ReadLine();
         }
     }
